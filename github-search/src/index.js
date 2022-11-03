@@ -1,11 +1,11 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import App from './App'
 import reportWebVitals from './reportWebVitals'
+import GithubSearchPage from './components/GithubSearchPage'
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <GithubSearchPage />
   </React.StrictMode>,
   document.getElementById('root'),
 )
