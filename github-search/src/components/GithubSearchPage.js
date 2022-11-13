@@ -5,17 +5,20 @@ import Button from '@material-ui/core/Button'
 import Container from '@material-ui/core/Container'
 import Grid from '@material-ui/core/Grid'
 import Box from '@material-ui/core/Box'
+import TableContainerComponent from './TableContainer';
+
 
 const GithubSearchPage = () => {
   const [isSearching, setIsSearching] = useState(false)
   const [isSearchingApplied, setIsSearchingApplied] = useState(false)
+  const [repoResult, setRepoResult] = useState({})
 
   return (
     <Container>
       <Typography variant="h3" component="h1">
         gibhub-serarch-page
       </Typography>
-      <Grid container spacing={2} justify="space-between">
+      <Grid container spacing={2} justifyContent="space-between">
         <Grid item md={6}>
           <TextField fullWidth label="filter By" id="filter by" />
         </Grid>
@@ -27,7 +30,9 @@ const GithubSearchPage = () => {
             variant="contained"
             onClick={async () => {
               setIsSearching(true)
-              await Promise.resolve()
+              const result = await fetch('https://api.github.com/search/repositories?q=react+language:python&page=2&per_page=5')
+              const data = await result.json()
+              setRepoResult(data)
               setIsSearching(false)
               setIsSearchingApplied(true)
             }}
@@ -37,7 +42,7 @@ const GithubSearchPage = () => {
         </Grid>
       </Grid>
       {isSearchingApplied ? (
-        <table />
+        <TableContainerComponent repoResult={repoResult}/>
       ) : (
         <Box display="flex" justifyContent="center">
           <Typography>
